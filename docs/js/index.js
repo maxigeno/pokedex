@@ -1,4 +1,4 @@
-const URL_ALL_POKEMONs = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+/* const URL_ALL_POKEMONs = 'https://pokeapi.co/api/v2/pokemon?limit=151';
 let allPokemonsInfo=[];
 let correctAnswer = '';
 
@@ -88,3 +88,4 @@ const writeAnswers = (answers) => {
  });
 getAllPokemons();
 
+ */

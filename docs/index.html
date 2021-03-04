@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="/docs/css/styles.css">
   <title>Pokedex</title>
 </head>
 
@@ -14,15 +14,20 @@
     <h1 class="header__title">Catch' em all</h1>
     <h1 class="header__title">Pokedex</h1>
   </header>
-  <div id="loader" class="loader"></div>
   <div id="game" class="game">
+    <div id="loader" class="loader">
+      <div class="loader__pokeball-container">
+        <div class="loader__pokeball"></div>
+      </div>
+      <div class="loader__text">Cargando...</div>
+    </div>
     <img id="poke-image" class="game__image"></img>
     <ul id="poke-answers" class="game__answers"></ul>
 
 
   </div>
 
-  <script src="./js/index.js"></script>
+  <script src="/docs/js/index.js"></script>
 </body>
 
 </html>
