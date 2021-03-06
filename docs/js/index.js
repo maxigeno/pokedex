@@ -1,85 +1,71 @@
-/* const URL_ALL_POKEMONs = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+const URL_ALL_POKEMONs = 'https://pokeapi.co/api/v2/pokemon?limit=151';
 let allPokemonsInfo=[];
 let correctAnswer = '';
 
 //DOM 
 const $pokeImage = document.getElementById("poke-image");
 const $answersList = document.getElementById("poke-answers");
+const $loader =document.getElementById('loader')
 
-const getRandomNumbers = (max=150) =>Math.round(Math.random() * max +1);
+const getRandomNumbers = (max=150) =>Math.floor(Math.round(Math.random() * max) + 1);
 
 const getAllPokemons =  async ( ) =>{
-  
-  const request = await fetch(URL_ALL_POKEMONs);
-  const allPokemons = await request.json();
-  allPokemonsInfo = [...allPokemons.results]; 
-  //console.log(allPokemonsInfo);
-  //console.log(getRandomNumbers());
-   getAnwers()
-          
+  $loader.style.display = "block";
+  const res = await fetch(URL_ALL_POKEMONs);
+  const allPokemons = await res.json();
+  console.log(allPokemons);
+  //.map(cb) - Transforma todos los el. del array y devuelve un nuevo array.
+  allPokemonsInfo = allPokemons.results.map((pokemon) => pokemon.name);
+  getAnwers();
 };
 
-const getAnwers = (answers = 3) => {
+const getAnwers = (answers = 5) => {
   const options = []; //creo un array para las opciones.
-  let randomNumber = getRandomNumbers(); //guardo un numero al azar.
-  let currentPokemon = allPokemonsInfo[randomNumber]; //elijo un pokemon al azar.
+  let currentPokemon = allPokemonsInfo[ getRandomNumbers()]; //elijo un poke. al azar.
   options.push(currentPokemon); //y meto en el array del options el pokemon.
 
-  //mientras que el arrays de las options sea menor alas cantidad de respuesta que quiero sigo agregando pokemons al aray
+  //mientras que el arrays  options sea menor alas cantidad de poke que quiero sigo agregando poke al aray
   while (options.length < answers) {
-    randomNumber = getRandomNumbers();
-    currentPokemon = allPokemonsInfo[randomNumber];
-
-    //busco si en el array options  en los attributos name son diferente al name del pok. que guarde en currentpokemon, si es dieferente ahora si lo pongo en el array
-    if (options.find(({ name }) => currentPokemon.name !== name)) {
-      options.push(currentPokemon);
+    const newAnswerPokemon = allPokemonsInfo[getRandomNumbers()];
+    //si options no contiene el new pokemon  ,entonces si lo agrego.
+    if (!options.includes(newAnswerPokemon) ) {
+      options.push(newAnswerPokemon);
     }
-  }
-  //console.log(options);
-  //guardo los names de los pokemon de las options
-  let allAnswers = options.map((answer) => answer.name);
-
-  //El substring() método devuelve un subconjunto de un objeto String.
-  //sintaxis : cadena.substring(indiceA[, indiceB'])
-  //El método replace() devuelve una nueva cadena con algunas o todas las coincidencias de un patrón, siendo cada una de estas coincidencias reemplazadas por remplazo. El patrón puede ser una cadena o una RegExp, y el reemplazo puede ser una cadena o una función que será llamada para cada coincidencia. Si el patrón es una cadena, sólo la primera coincidencia será reemplazada.
-  //cadena.replace(regexp|substr, newSubStr|function[,  flags]);
-  //obtengo solo los caracteres del string desdepues del caracter 34 que seria solo el id  y con replace elimino la barra final para tener solo el <numero> </numero>
-  getPokeImage(options[0].url.substring(34).replace("/", " "));
-
-  //GUARDO LA RESPUESTA CORRECTA
-  correctAnswer = options[0].name;
-  console.log(correctAnswer);
+  };
+  //Guardo la respuesta correcta
+  correctAnswer = options[0] ;
 
   //desordenos los nombres ya que el primero siempre sera el correcto
-  allAnswers = allAnswers.sort(() => Math.random() - 0.5);
+  allAnswers = options.sort(() => Math.random() - 0.5 );
+
   writeAnswers(allAnswers);
-  //console.log(allAnswers);
+
 };
 
-const getPokeImage =  async (id) =>{
-   const request = await fetch(`https://pokeapi.co/api/v2/pokemon-form/${id}`);
-  const pokeInfo = await request.json();
-  
-  console.log(pokeInfo);
-  $pokeImage.src =pokeInfo.sprites.front_default;
-  
-};
+const capitalize =(word) =>word[0].toUpperCase() + word.slice(1);
 
 const writeAnswers = (answers) => {
-  const $fragment = document.createDocumentFragment();
-
+//vacio las opciones para q recetee a cero  a cada llamada
+  $answersList.textContent= '' ;
+  const $fragment = document.createDocumentFragment() ;
   for (const answer of answers) {
-    const $li = document.createElement('li');
-    $li.textContent= answer;
-    $fragment.appendChild($li);
-  } 
+    const $li = document.createElement( 'li' ) ;
+    $li.textContent = answer ;
+    $fragment.appendChild($li) ;
+  }
+  $loader.style.display ='none' ;
+  $pokeImage.classList.remove('game__image--show') ;
+ $pokeImage.src = `/docs/assets/image/generación-1/gif/${correctAnswer}.gif`;
   $answersList.appendChild($fragment);
 };
+
  $answersList.addEventListener('click',(e) =>{
    //confirmo que sea haga click en un tag que sea Li
     if (e.target.tagName === 'LI') {
       //Y COMPARO QUE EL TEXTCONTENT DEL LI SEA IGUAL A LA RESPUESTA COREECTA GUARDADA
         if (e.target.textContent === correctAnswer) {
+          $pokeImage.classList.add("game__image--show");
+          setTimeout(() =>getAnwers(), 2500 ) ;
           console.log("CORREcTO");
         }else{
           console.log("FALLASTE");
@@ -88,4 +74,3 @@ const writeAnswers = (answers) => {
  });
 getAllPokemons();
 
- */

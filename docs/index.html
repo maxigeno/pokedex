@@ -14,19 +14,32 @@
     <h1 class="header__title">Catch' em all</h1>
     <h1 class="header__title">Pokedex</h1>
   </header>
-  <div id="game" class="game">
-    <div id="loader" class="loader">
-      <div class="loader__pokeball-container">
-        <div class="loader__pokeball"></div>
+  <main id="main" class="main">
+    <div id="game" class="game">
+      <div id="loader" class="loader">
+        <div class="loader__pokeball-container">
+          <div class="loader__pokeball"></div>
+        </div>
+        <div class="loader__text">Cargando...</div>
       </div>
-      <div class="loader__text">Cargando...</div>
+      <img id="poke-image" class="game__image"></img>
+      <ul id="poke-answers" class="game__answers"></ul>
     </div>
-    <img id="poke-image" class="game__image"></img>
-    <ul id="poke-answers" class="game__answers"></ul>
-
-
-  </div>
-
+    <div id="pokedex" class="pokedex">
+      <div class="pokedex__card">
+        <div id="pokedex__pokeball" class="pokedex__pokeball"></div>
+      </div>
+      <div class="pokedex__card">
+        <div id="pokedex__pokeball" class="pokedex__pokeball"></div>
+      </div>
+      <div class="pokedex__card">
+        <div id="pokedex__pokeball" class="pokedex__pokeball"></div>
+      </div>
+      <div class="pokedex__card">
+        <div id="pokedex__pokeball" class="pokedex__pokeball"></div>
+      </div>
+    </div>
+  </main>
   <script src="/docs/js/index.js"></script>
 </body>
 

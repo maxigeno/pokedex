@@ -351,10 +351,15 @@ body {
   overflow: hidden;
 }
 
+main {
+  display: flex;
+}
+
 :root {
   --red: #ee1c25;
   --white: #e8e8e8;
   --blue: #2785f5;
+  --dark-blue: #00426e;
   --yellow: #ffcb05;
   --grey: #858585;
 }
@@ -376,6 +381,11 @@ body {
   display: block;
   margin-right: auto;
   margin-left: auto;
+  filter: brightness(0);
+}
+.game__image--show {
+  transition: filter 1s;
+  filter: brightness(1);
 }
 .game__answers {
   /*  receo padding-left y margin-top  y list-style: q tiene por defeault las listas */
@@ -483,6 +493,59 @@ body {
   66% {
     transform: translateX(-15px);
   }
+}
+
+.pokedex {
+  background-color: var(--grey);
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 200px);
+  grid-template-rows: repeat(2, 325px);
+  padding: 20px;
+  gap: 50px;
+}
+.pokedex__card {
+  width: 200px;
+  height: 300px;
+  border-radius: 15px;
+  background-color: var(--dark-blue);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pokedex__pokeball {
+  position: absolute;
+  border: 10px solid black;
+  border-radius: 50%;
+  width: 175px;
+  height: 175px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.2;
+}
+.pokedex__pokeball::after {
+  content: "";
+  display: block;
+  background-color: black;
+  width: 100%;
+  height: 10px;
+}
+.pokedex__pokeball::before {
+  content: "?";
+  position: absolute;
+  display: block;
+  background-color: var(--dark-blue);
+  border: 10px solid black;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  padding-bottom: 0.5rem;
 }
 
 /*# sourceMappingURL=styles.css.map */
